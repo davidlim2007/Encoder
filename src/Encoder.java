@@ -33,7 +33,13 @@ public class Encoder {
                 continue;
             }
 
-            int newIndex = ((alphabetIndex - offsetIndex) % alphabet.size());
+            int newIndex = alphabetIndex - offsetIndex;
+
+            if (newIndex < 0)
+            {
+                newIndex += alphabet.size();
+            }
+
             sb.append(alphabet.get(newIndex));
         }
 
