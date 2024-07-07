@@ -1,6 +1,6 @@
 public class Main {
     public static void main(String[] args) {
-        Encoder encoder = new Encoder("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789()*+,-./");;
+        Encoder encoder = new Encoder(args[0]);;
 
         try
         {
