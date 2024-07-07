@@ -7,7 +7,7 @@ public class Main {
             String strOriginal = "HELLO WORLD";
             System.out.println("Original : " + strOriginal);
 
-            String strEncoded = encoder.encode(strOriginal, 'F');
+            String strEncoded = encoder.encode(strOriginal, args[1].charAt(0));
             System.out.println("Encoded : " + strEncoded);
 
             String strDecoded = encoder.decode(strEncoded);
