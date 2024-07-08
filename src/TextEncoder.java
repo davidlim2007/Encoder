@@ -1,20 +1,32 @@
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Encoder {
+public class TextEncoder implements IEncoder {
     private List<Character> alphabet;
 
-    public Encoder(String sAlphabet)
+    public TextEncoder(String sAlphabet)
     {
         alphabet = sAlphabet.chars().mapToObj(c -> (char) c).collect(Collectors.toList());
     }
 
-    public String encode(String plainText, char offset) throws Exception
+    public String encode(List input) throws Exception
     {
+        if (input.size() < 2)
+        {
+            throw new Exception("Unable to encode due to insufficient arguments.");
+        }
+
+        if (((String)input.get(1)).length() != 1)
+        {
+            throw new Exception("Unable to encode. Offset [" + input.get(1) + "] exceeds required length of 1.");
+        }
+
+        String plainText = (String) input.get(0);
+        char offset = ((String) input.get(1)).charAt(0);
+
         if (!alphabet.contains(offset))
         {
-            throw new Exception("Invalid offset " + offset + " not found in Alphabet. Unable to encode.");
+            throw new Exception("Invalid offset [" + offset + "] not found in Alphabet. Unable to encode.");
         }
 
         int offsetIndex = alphabet.indexOf(offset);
@@ -46,8 +58,15 @@ public class Encoder {
         return sb.toString();
     }
 
-    public String decode(String encodedText) throws Exception
+    public String decode(List input) throws Exception
     {
+        if (input.size() == 0)
+        {
+            throw new Exception("Unable to decode due to insufficient arguments.");
+        }
+
+        String encodedText = (String) input.get(0);
+
         if (!alphabet.contains(encodedText.charAt(0)))
         {
             throw new Exception("Invalid offset " + encodedText.charAt(0) + " not found in Alphabet. Unable to decode.");
